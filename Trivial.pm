@@ -3,7 +3,7 @@ use strict;
 use 5.00503;
 
 use vars qw($VERSION);
-$VERSION = '0.05';
+$VERSION = '0.06';
 
 use vars qw($STRICT);           ## template stricture
 use vars qw($TMPL_DIR);         ## template directory
@@ -177,7 +177,7 @@ sub parse {
 	my $file;
 
 	## find the template in our cache
-	unless( $TEMPLATE_CACHE{$tmpl} ) {
+	unless( defined $TEMPLATE_CACHE{$tmpl} ) {
 	    open TMPL, "$TEMPLATE_NAME{$tmpl}"
 	      or do {
 		  warn "Could not open template ($tmpl) '$TEMPLATE_NAME{$tmpl}': $!\n";

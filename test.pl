@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 22; chdir 't' if -d 't' }
+BEGIN { plan tests => 23; chdir 't' if -d 't' }
 
 use blib;
 use Template::Trivial;
@@ -78,6 +78,14 @@ open FILE, ">bar.tmpl"
   or die "Could not write bar.tmpl: $!\n";
 print FILE "This is bar {BARF} so there\n";
 close FILE;
+
+## empty variable test
+$tmpl->define_from_string( something => q!HI{BLANK}THERE!, blank => '' );
+$tmpl->parse(BLANK => 'blank');
+$tmpl->parse(SOMETHING => 'something');
+ok( $tmpl->to_string('SOMETHING'), 'HITHERE' );
+
+## FIXME: false variable test (0)
 
 ## undefined variable test
 $tmpl->define(bar => 'bar.tmpl');
