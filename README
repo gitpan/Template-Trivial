@@ -1,0 +1,41 @@
+Template-Trivial version 0.05
+=============================
+
+Template::Trivial is heavily inspired by the excellent and stable
+CGI::FastTemplate written by Jason Moore. We introduce a slightly
+modified syntax, fewer features, and a slight execution improvment
+over CGI::FastTemplate.
+
+   use Template::Trivial;
+
+   my $tmpl = new Template::Trivial( templates => '/path/to/templates' );
+   $tmpl->define( main => 'main.tmpl',
+                  list => 'list.tmpl' );
+   $tmpl->define_from_string( item => '<li>{ITEM}' );
+
+   for $i ( 1 .. 3 ) {
+       $tmpl->assign( ITEM    => "Thingy $_" );
+       $tmpl->parse( '.ITEMS' => 'item' );
+   }
+
+   $tmpl->parse(LIST => 'list' );
+   $tmpl->parse(MAIN => 'main' );
+
+   print $tmpl->to_string('MAIN');
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2004 by Scott Wiersdorf
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.8.1 or,
+at your option, any later version of Perl 5 you may have available.

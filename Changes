@@ -1,0 +1,41 @@
+Revision history for Perl extension Template::Trivial.
+
+Public Release 0.05:
+----------------------------
+revision 1.8
+date: 2004/01/07 16:33:59;  author: deep;  state: Exp;  lines: +8 -2
+- additional notes for to do list
+----------------------------
+revision 1.7
+date: 2004/01/07 06:55:01;  author: deep;  state: Exp;  lines: +277 -143
+- fix some warnings for strict
+- complete documentation
+- longer benchmark reveals about 10% speedup over CGI::FastTemplate
+----------------------------
+revision 1.6
+date: 2004/01/06 14:48:58;  author: deep;  state: Exp;  lines: +64 -82
+- some code cleanup
+----------------------------
+revision 1.5
+date: 2004/01/02 05:58:51;  author: deep;  state: Exp;  lines: +4 -1
+- redefining a template clears it from the cache
+----------------------------
+revision 1.4
+date: 2004/01/01 21:30:02;  author: deep;  state: Exp;  lines: +329 -37
+- additional tests
+- additional documentation
+- revision 0.01 complete (working module)
+----------------------------
+revision 1.3
+date: 2004/01/01 05:12:24;  author: deep;  state: Exp;  lines: +7 -0
+- more individual tests
+----------------------------
+revision 1.2
+date: 2004/01/01 03:34:48;  author: deep;  state: Exp;  lines: +85 -49
+- documentation fleshed out
+- some tests
+----------------------------
+revision 1.1
+date: 2003/12/30 06:13:04;  author: deep;  state: Exp;
+- basic documentation
+=============================================================================
