@@ -44,7 +44,11 @@ ok($tmpl->to_string('FOO'), "Foo contents\n");
 unlink "test.foo";
 
 ## test assign_from_file (device)
-$tmpl->assign_from_file(FOO => '/dev/null');
+if( -e '/dev/null' ) {
+    $tmpl->assign_from_file(FOO => '/dev/null');  ## this won't work on Windows
+} else {
+    $tmpl->assign(FOO => '');
+}
 ok( $tmpl->to_string('FOO'), '' );
 
 ## test variable assignment

@@ -3,7 +3,7 @@ use strict;
 use 5.00503;
 
 use vars qw($VERSION);
-$VERSION = '0.06';
+$VERSION = '0.07';
 
 use vars qw($STRICT);           ## template stricture
 use vars qw($TMPL_DIR);         ## template directory
