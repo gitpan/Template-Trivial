@@ -1,1 +1,3 @@
 This is just for fun; to run the benchmarks, type 'perl bench.pl'
+
+You'll need to have CGI::FastTemplate installed.

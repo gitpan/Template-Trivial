@@ -1,9 +1,11 @@
 package Template::Trivial;
-use strict;
+
 use 5.00503;
+use strict;
+use warnings;
 
 use vars qw($VERSION);
-$VERSION = '0.07';
+$VERSION = '0.08';
 
 use vars qw($STRICT);           ## template stricture
 use vars qw($TMPL_DIR);         ## template directory
@@ -232,7 +234,7 @@ __END__
 
 =head1 NAME
 
-Template::Trivial - Simple Substitution Templates
+Template::Trivial - Simple (yet powerful) and fast substitution templates
 
 =head1 SYNOPSIS
 
@@ -742,12 +744,21 @@ Add method aliases for complete CGI::FastTemplate drop-in replacement.
 
 =back
 
+=head1 SEE ALSO
+
+CGI::FastTemplate(3).
+
 =head1 AUTHOR
 
 Scott Wiersdorf, E<lt>scott@perlcode.orgE<gt>
 
-=head1 SEE ALSO
+=head1 COPYRIGHT AND LICENSE
 
-CGI::FastTemplate(3).
+Copyright (C) 2007 by Scott Wiersdorf
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.8.6 or,
+at your option, any later version of Perl 5 you may have available.
+
 
 =cut

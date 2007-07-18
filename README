@@ -1,4 +1,4 @@
-Template-Trivial version 0.06
+Template-Trivial version 0.08
 =============================
 
 Template::Trivial is heavily inspired by the excellent and stable
@@ -32,9 +32,15 @@ To install this module type the following:
    make test
    make install
 
+DEPENDENCIES
+
+This module requires these other modules and libraries:
+
+  Test::More
+
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2004 by Scott Wiersdorf
+Copyright (C) 2007 by Scott Wiersdorf
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.8.1 or,

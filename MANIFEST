@@ -1,8 +1,9 @@
 Changes
-MANIFEST
 Makefile.PL
+MANIFEST
 README
-Trivial.pm
-bench/README
-bench/bench.pl
-test.pl
+t/Template-Trivial.t
+example/README
+example/bench.pl
+lib/Template/Trivial.pm
+META.yml                                 Module meta-data (added by MakeMaker)

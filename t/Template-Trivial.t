@@ -1,10 +1,7 @@
-use Test;
-BEGIN { plan tests => 23; chdir 't' if -d 't' }
+use Test::More tests => 23;
+BEGIN { use_ok('Template::Trivial') };
 
-use blib;
-use Template::Trivial;
-
-ok(1);
+#########################
 
 my $tmpl;
 
@@ -18,18 +15,18 @@ ok( $tmpl->strict );
 
 undef $tmpl;
 $tmpl = new Template::Trivial(strict => 0);
-ok( $tmpl->strict, 0 );
+is( $tmpl->strict, 0 );
 
 $tmpl->strict(1);
 ok( $tmpl->strict );
 
 undef $tmpl;
 $tmpl = new Template::Trivial;
-ok( $tmpl->templates, '' );
+is( $tmpl->templates, '' );
 
 undef $tmpl;
 $tmpl = new Template::Trivial(templates => '/var/tmp/foo');
-ok( $tmpl->templates, '/var/tmp/foo/' );
+is( $tmpl->templates, '/var/tmp/foo' );
 
 undef $tmpl;
 $tmpl = new Template::Trivial;
@@ -40,7 +37,7 @@ open FOO, ">test.foo"
 print FOO "Foo contents\n";
 close FOO;
 $tmpl->assign_from_file(FOO => 'test.foo');
-ok($tmpl->to_string('FOO'), "Foo contents\n");
+is($tmpl->to_string('FOO'), "Foo contents\n");
 unlink "test.foo";
 
 ## test assign_from_file (device)
@@ -49,33 +46,33 @@ if( -e '/dev/null' ) {
 } else {
     $tmpl->assign(FOO => '');
 }
-ok( $tmpl->to_string('FOO'), '' );
+is( $tmpl->to_string('FOO'), '' );
 
 ## test variable assignment
 $tmpl->assign(FOO => 'foo');
-ok( $tmpl->to_string('FOO'), 'foo' );
+is( $tmpl->to_string('FOO'), 'foo' );
 
 ## test multiple variable assignment
 $tmpl->assign(BAR => 'bar', BAZ => 'baz');
-ok( $tmpl->to_string('BAR'), 'bar');
-ok( $tmpl->to_string('BAZ'), 'baz');
+is( $tmpl->to_string('BAR'), 'bar');
+is( $tmpl->to_string('BAZ'), 'baz');
 
 ## test append methods
 $tmpl->assign('.FOO' => 'ster');
-ok( $tmpl->to_string('FOO'), 'fooster' );
+is( $tmpl->to_string('FOO'), 'fooster' );
 $tmpl->append(FOO => ' just');
-ok( $tmpl->to_string('FOO'), 'fooster just' );
+is( $tmpl->to_string('FOO'), 'fooster just' );
 
 ## test template definition
 $tmpl->strict(0);  ## turn off stricture
 $tmpl->define(bar => 'bar.tmpl');
-ok($tmpl->to_string('bar'), '');
+is($tmpl->to_string('bar'), '');
 
 $tmpl->strict(1);  ## should warn under strict
 print STDERR "A warning should appear here: ";
 $tmpl->define(bar => 'bar.tmpl');
 print STDERR "A warning should appear here: ";
-ok($tmpl->to_string('bar'), undef );
+is($tmpl->to_string('bar'), undef );
 
 ## create bar.tmpl
 open FILE, ">bar.tmpl"
@@ -87,7 +84,7 @@ close FILE;
 $tmpl->define_from_string( something => q!HI{BLANK}THERE!, blank => '' );
 $tmpl->parse(BLANK => 'blank');
 $tmpl->parse(SOMETHING => 'something');
-ok( $tmpl->to_string('SOMETHING'), 'HITHERE' );
+is( $tmpl->to_string('SOMETHING'), 'HITHERE' );
 
 ## FIXME: false variable test (0)
 
@@ -95,17 +92,17 @@ ok( $tmpl->to_string('SOMETHING'), 'HITHERE' );
 $tmpl->define(bar => 'bar.tmpl');
 print STDERR "A warning should appear here: ";
 $tmpl->parse(BAR => 'bar');
-ok($tmpl->to_string('BAR'), "This is bar {BARF} so there\n" );
+is($tmpl->to_string('BAR'), "This is bar {BARF} so there\n" );
 
 ## try again
 $tmpl->assign(BARF => "barfus");
 $tmpl->parse(BAR => 'bar');
-ok($tmpl->to_string('BAR'), "This is bar barfus so there\n");
+is($tmpl->to_string('BAR'), "This is bar barfus so there\n");
 
 ## test parse append
 $tmpl->assign(BARF => "sufrab");
 $tmpl->parse('.BAR' => 'bar');
-ok($tmpl->to_string('BAR'), <<_BARF_);
+is($tmpl->to_string('BAR'), <<_BARF_);
 This is bar barfus so there
 This is bar sufrab so there
 _BARF_
@@ -145,7 +142,7 @@ $tmpl->define( %files );
 $tmpl->define_from_string( title => "<title>{TITLE}</title>" );
 $tmpl->assign( TITLE => "This is the title" );
 $tmpl->parse( TITLE => 'title' );
-ok( $tmpl->to_string('TITLE'), "<title>This is the title</title>" );
+is( $tmpl->to_string('TITLE'), "<title>This is the title</title>" );
 
 open FOO, ">title.foo"
   or die "Could not open title.foo: $!\n";
@@ -156,13 +153,13 @@ close FOO;
 $tmpl->define( title => "title.foo" );
 $tmpl->assign( TITLE => "This is the second title" );
 $tmpl->parse( TITLE => 'title' );
-ok( $tmpl->to_string('TITLE'), "<title>Foo: This is the second title</title>" );
+is( $tmpl->to_string('TITLE'), "<title>Foo: This is the second title</title>" );
 
 ## override
 $tmpl->define_from_string( title => "<title>{TITLE}</title>" );
 $tmpl->assign( TITLE => "This is the title" );
 $tmpl->parse( TITLE => 'title' );
-ok( $tmpl->to_string('TITLE'), "<title>This is the title</title>" );
+is( $tmpl->to_string('TITLE'), "<title>This is the title</title>" );
 
 ## define ROWS variable
 $tmpl->assign(ROWS => qq!<tr valign="top"><td>name</td><td>gecos</td></tr>\n!);
@@ -177,7 +174,7 @@ for my $char ( sort keys %chars ) {
 $tmpl->parse( TABLE => 'table' );
 $tmpl->parse( MAIN => 'main' );
 
-ok( $tmpl->to_string('MAIN'), <<_MAIN_ );
+is( $tmpl->to_string('MAIN'), <<_MAIN_ );
 <html>
 <head>
 <title>This is the title</title>
